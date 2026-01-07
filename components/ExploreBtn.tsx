@@ -11,7 +11,7 @@ export default function ExploreBtn() {
       onClick={() => console.log("Explore button clicked")}
     >
       <a href="#events">
-        ExploreBtn{" "}
+        Explore Events{" "}
         <Image
           src="/icons/arrow-down.svg"
           alt="arrow-down"

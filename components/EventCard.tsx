@@ -1,4 +1,4 @@
-import { EventItem } from "@/lib/constants";
+import { IEvent } from "@/DataBase/event.models";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,9 +9,9 @@ export default function EventCard({
   location,
   date,
   time,
-}: EventItem) {
+}: IEvent) {
   return (
-    <Link href={"/events" + slug} id="event-card">
+    <Link href={"/events/" + slug} id="event-card">
       <Image
         src={image}
         alt={title}

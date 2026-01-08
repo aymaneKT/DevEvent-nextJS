@@ -5,6 +5,7 @@ import EventDetailItem from "@/components/EventDetailItem";
 import EventTags from "@/components/EventTags";
 import { IEvent } from "@/DataBase/event.models";
 import { getSimilarEventsBySlug } from "@/lib/actions/event.actions";
+import { cacheLife } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -15,6 +16,8 @@ export default async function EventDetailPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  "use cache";
+  cacheLife("hours");
   const { slug } = await params;
   const response = await fetch(`${BASE_URL}/api/events/${slug}`);
   const { event } = await response.json();
@@ -93,7 +96,7 @@ export default async function EventDetailPage({
               <p className="text-sm">Be the first to book your spot !</p>
             )}
 
-            <BookEvent />
+            <BookEvent eventId={event._id} slug={slug} />
           </div>
         </aside>
       </div>

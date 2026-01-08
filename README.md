@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevEvent (Next.js)
 
-## Getting Started
+DevEvent is a full-stack web app built with Next.js (App Router) and TypeScript. The UI lives in the `app/` directory, while the backend is exposed through Route Handlers (HTTP endpoints) defined in `app/api/**/route.ts`.
 
-First, run the development server:
+## What this project is about
 
-```bash
+This project provides a practical Next.js baseline that includes:
+a frontend (pages, layouts, reusable UI components),
+a set of server-side API endpoints shipped within the same app,
+a clean structure to keep UI, business logic, and data access separated.
+
+If you’re looking for the endpoints, start from `app/api/` and follow the `route.ts` files.
+
+## Tech stack & structure
+
+Core technologies:
+Next.js (App Router), React, TypeScript.
+
+Styling:
+PostCSS pipeline (often Tailwind CSS if configured).
+
+UI:
+`components/` (reusable UI components).
+
+Utilities/services:
+`lib/`.
+
+Static assets:
+`public/`.
+
+Database-related resources:
+`DataBase/`.
+
+High-level structure:
+
+.
+├─ app/                  # routing, pages, layouts, (and API in app/api)
+├─ components/           # reusable UI components
+├─ lib/                  # helpers, services, data access, utils
+├─ DataBase/             # DB resources (schema/seed/config, if present)
+├─ public/               # static assets
+├─ next.config.ts
+├─ postcss.config.mjs
+├─ tsconfig.json
+└─ package.json
+
+## Requirements
+
+Recommended:
+Node.js LTS and a package manager (npm/pnpm/yarn/bun).
+
+## Local setup
+
+Install dependencies:
+npm install
+
+Run in development:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file at the project root if the app or API routes require configuration (DB, API keys, etc.).
 
-## Learn More
+Example (adjust to your needs):
+DATABASE_URL="..."
+# SOME_API_KEY="..."
 
-To learn more about Next.js, take a look at the following resources:
+If you’re unsure which env vars are needed, search for `process.env.` usage in `app/` and `lib/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API endpoints (Route Handlers)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next.js App Router endpoints are defined in `app/api/**/route.ts`.
 
-## Deploy on Vercel
+Rule of thumb:
+the folder path under `app/api` becomes the URL,
+the exported functions (GET, POST, PUT, PATCH, DELETE, ...) define supported HTTP methods.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Endpoint documentation template:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Endpoint: /api/...
+Methods: GET
+Description: ...
+Request: query/headers
+Response: JSON
+
+Endpoint: /api/...
+Methods: POST
+Description: ...
+Request: JSON body
+Response: JSON
+
+Quick test example (adjust to real routes):
+curl -i http://localhost:3000/api/health
+
+## Suggested conventions
+
+Keep route naming consistent (singular/plural resources).
+Validate inputs server-side before touching the database.
+Return consistent JSON errors with proper HTTP status codes.
+
+## Build & deploy
+
+Build:
+npm run build
+
+Start (production locally):
+npm run start
+
+Recommended deployment:
+Vercel (or any Next.js-compatible platform).
